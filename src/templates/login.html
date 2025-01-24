@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block head %}
+
+    <link rel="stylesheet" href="../static/head.css">
+    <link rel="stylesheet" href="../static/navbar.css">
+    <link rel="stylesheet" href="../static/register-and-login.css">  
+    <!--<link rel="stylesheet" href="../static/connexion.css">-->
+
+{% endblock %}
+
+{% block body %}
+
+    <header class="main-header">
+        <span class="wordle-title">WORDLE</span>
+        <nav>
+            <ul>
+                <li><a class="navbar-link" href="/">Accueil</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="register-and-login-form" id="login-text-form">
+
+        <div class="register-and-login-text-block">
+            <p class="register-and-login-text">Se connecter</p>
+        </div>
+
+        <div class="register-and-login-error">
+            {% if message %}
+                <p class="error-message">{{ message }}</p>
+            {% endif %}
+        </div>
+
+        <form action="/login" method="POST">
+
+            <div class="flex-item">
+                <label for="username">Pseudo :</label><br>
+                <input class="register-and-login-form-input" type="text" id="username" name="username" placeholder="Pseudo" autocomplete="off" autofocus required minlength="3" maxlength="20">
+            </div>
+
+            <div class="flex-item">
+                <label for="pass">Mot de passe :</label><br>
+                <input class="register-and-login-form-input" type="password" id="pass" name="pass" placeholder="Mot de passe" autocomplete="off" required minlength="8" maxlength="20">
+            </div>
+
+            <div class="flex-item">
+                <input class="register-and-login-form-button" id="login-form-button" type="submit" value="Se connecter !">
+            </div>
+
+        </form>
+
+    </div>
+
+{% endblock %}

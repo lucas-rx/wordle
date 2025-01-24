@@ -1,0 +1,81 @@
+\begin{center}
+\begin{tabular}[c]{|l|l|}
+    \hline
+    Type de réunion & Réunion d'avancement \\
+    \hline
+    Lieu & Telecom Nancy \\
+    \hline
+    Horaires & 12h30 - 13h20 \\
+    \hline
+    Maître de séance & Serge Téhé\\
+    \hline
+    Secrétaire & Serge Téhé \\
+    \hline
+    Membres présents & Armand Londeix \\ & Patrick O'Brien \\ & Lucas Rioux \\ & Serge Téhé\\
+    \hline
+    Membres absents & Aucun \\
+    \hline
+\end{tabular}
+\end{center}
+
+\section*{Ordre du jour}
+
+\textbf{
+\begin{enumerate}
+    \item Architecture du site
+    \item Élaboration de la base de données
+    \item Présentation du jeu Wordle par Serge Téhé
+\end{enumerate}
+}
+
+
+\section*{1. Architecture du site}
+\tabto{1cm}Au début de la réunion, nous avons commencé par mettre en œuvre l’architecture de notre site Web.  Lucas s’est mis au tableau pour écrire toutes les propositions des membres du groupe et nous nous sommes mis d’accord sur plusieurs points.\\
+\tabto{1cm}L’utilisateur non connecté arrivant sur la page d’accueil du site voit le jeu Wordle auquel il peut directement jouer sans être inscrit au préalable. Sur cette même page, cet utilisateur non connecté aperçoit au niveau de la barre de navigation principale un paramétrage pour paramétrer la longueur des mots et le nombre d’essais maximum puis 2 boutons d’inscription et de connexion. Ces boutons d’inscription et de connexion servent à enregistrer un joueur de sorte à ce qu’il puisse voir son historique de parties jouées et les niveaux qu’il a débloqués (hard,medium,easy).\\
+\tabto{1cm}L’utilisateur connecté quant à lui peut voir son profil avec les niveaux débloqués ainsi que des boutons de déconnexion, de statistiques sur les anciennes parties jouées et aussi de paramétrage du jeu.\\
+\tabto{1cm}Certains membres du groupe ont proposé d’autres fonctionnalités telles que le mot du jour, endless, contre-la -montre que nous implémenterons si nous avons le temps.
+
+
+\section*{2. Élaboration de la base de données}
+\tabto{1cm}La base de données permet d’enregistrer les données des utilisateurs connectés. Nous avons convenu la création de 3 tables :
+
+\begin{center}
+\begin{tabular}[c]{|l|l|l|}
+    \hline
+    \textbf{User} & \textbf{Historique} & \textbf{Succès} \\
+    \hline
+    idUser INTEGER PK & idPartie INTEGER PK & idSucces INTEGER PK \\
+    pseudo STR & idUser INTEGER FK & idUser INTEGER FK \\
+    motDePasse STR & nb\_essais STR & estObtenu BOOLEAN \\
+    & longueurMot INTEGER & \\
+    \hline
+\end{tabular}
+\end{center}
+
+Cette base de données ressort de nos propositions, nous la normaliserons éventuellement en 3ème forme normale.
+
+
+\section*{3. Présentation du jeu Wordle par Serge Téhé}
+\tabto{1cm}Nous n’avons pas eu le temps pour cette partie, Serge devait présenter et expliquer son implémentation du jeu Wordle.
+
+\section*{TO-DO LIST}
+
+\begin{center}
+\begin{tabular}{|c|l|}
+    \hline
+    Armand Londeix & - Rédaction du document de conception \\
+    \hline
+    Patrick O'Brien & - Rédaction du document de conception \\
+    & - Présentation textuelle du jeu Wordle \\
+    \hline
+    Lucas Rioux & - Maquette du site \\
+    & - WBS \\
+    & - Rédaction du document de conception \\
+    \hline
+    Serge Téhé & - Normalisation de la base de données \\
+    & - Rédaction du document de conception \\
+    \hline
+\end{tabular}
+\end{center}
+
+\tabto{0cm}\textbf{Prochaine réunion : Mercredi 13 Avril à 14h00.}

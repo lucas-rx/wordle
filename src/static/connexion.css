@@ -1,0 +1,36 @@
+input[type = text]{
+    width: 150px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    margin: 8px 0;
+    border: 2px solid #ccc;
+    font-size: 16px;
+    background-color: #D81B1B;
+    color: white;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 16px;
+    transition: width 0.4s ease-in-out;
+  }
+  input[type = password]:focus {
+      background-color: lightblue;
+      width:30%
+  }
+ input[type = password]{
+    width: 150px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    margin: 8px 0;
+    border: 2px solid #ccc;
+    font-size: 16px;
+    background-color: #D81B1B;
+    color: white;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 16px;
+    transition: width 0.4s ease-in-out;
+  }
+  input[type = email]:focus {
+      background-color: lightblue;
+      width:30%
+  }

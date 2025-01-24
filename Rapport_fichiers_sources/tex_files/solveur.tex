@@ -1,0 +1,45 @@
+Nous avons donc implémenté un solveur codé en C qui nous permettra à partir d'une liste de mots de pouvoir déterminer lequel d'entre eux nous donne le plus d'informations, afin de résoudre en un nombre minimal de coups le problème.\\
+
+\subsubsection{Le principe général}
+
+Tout d'abord lorsque l'on donne un mot au jeu WORDLE, ce dernier nous retourne une combinaison de couleurs comme expliqué ci-dessus. La probabilité d'avoir un mot qui a la même combinaison si on le donne au jeu dépend des lettres choisies : plus le mot contiendra de lettres fréquentes et plus la probabilité d'avoir un mot possédant la même combinaison est importante.\\
+
+On souhaite savoir si un mot possède la même combinaison de couleurs si on l'envoie dans le jeu qu'un autre déjà envoyé dont on connaît la combinaison, pour cela on compare les 2 mots avec la combinaison du second et on regarde s'ils possèdent les mêmes lettres bien placées aux bons endroits, les mêmes lettres mal placées, etc... \\
+Par exemple si nous rentrons le mot "tarie" dans le jeu, et qu'il nous renvoie une combinaison comme VGJGJ, nous savons que le "t" est bien placé, le "r" et le "e" sont mal placés et le "a" et le "i" n'existent pas. \\
+Pour voir si un mot possède la même combinaison, il suffit de regarder s'il possède un "t" placé en première position, un "r" et un "e" à d'autres positions que celles qu'ils occupent dans le mot "tarie" et s'il ne possède pas les lettres "a" et "i". \\
+Ainsi le mot "taire" ne conviendrait pas alors que "torre" est compatible avec la combinaison donnée. \\
+
+Une fois que le jeu nous donne la combinaison il n'est plus utile de considérer les mots qui, comparés au mot choisi ne possèdent pas la même combinaison que celle renvoyée par le jeu, ainsi nous pouvons les supprimer et nous réduisons de fait le champ des possibilités. Ainsi un mot avec peu de lettres communes réduit grandement le nombre de possibilités uniquement s'il possède des lettres bien placées, à l'inverse un mot avec beaucoup de lettres communes a une plus grande probabilité de réduire le champ des possibilités mais le réduit moins efficacement. \\
+
+De cette manière, il faut choisir un mot avec des lettres suffisamment courantes pour nous donner le maximum de lettres bien placées ou mal placées mais pas trop non plus pour être sûr de réduire le plus possible le champ des possibilités.\\
+
+Ainsi nous pouvons introduire la formule : $Qt_{info} = -p * log_2(p)$ bits avec $p$ la probabilité d'avoir un mot possédant la même combinaison de couleurs que celle obtenue. \\
+
+Partant de cette formule, il suffit de choisir le mot qui donne le plus d'informations pour avancer le plus vite dans le jeu.\\
+
+Maintenant que nous avons introduit ces notions, on introduit une formule qui détermine la quantité d'information moyenne que donne un mot, appelée \textbf{Entropie de Shannon}. En adaptant la formule à notre sujet, l'entropie d'un mot devient la somme sur toutes les combinaisons de couleurs possibles de la probabilité $p$ définie ci-dessus multipliée par le logarithme en base 2 de $1/p$. 
+Le solveur marche de la façon suivante : au début de la partie, le solveur va pour chaque mot déterminer son entropie et choisir le mot qui possède la plus grande entropie.\\
+
+Ensuite, on rentre ce mot dans notre application Web et il en découle une combinaison de couleurs. Cette combinaison de couleurs est identifiée par une suite de chiffres faisant référence aux couleurs données par notre application: 2 pour la couleur verte, 1 pour la couleur jaune, 0 pour la couleur grise. Cette combinaison de couleurs va nous permettre de d'éliminer les mots du dictionnaire qui ne correspondent pas à cette combinaison de couleurs.\\
+
+
+Nous avons maintenant une liste réduite qui contiendrait potentiellement le mot à deviner, nous recommençons ainsi l'opération sur cette liste et ainsi de suite jusqu'à trouver le mot à deviner. \\
+
+\subsubsection{Les structures de données}
+
+Nous avons décidé d'utiliser une table de hachage pour stocker notre dictionnaire (l'ensemble des mots que le joueur peut proposer au jeu WORDLE).\\
+
+Une table de hachage est une liste de listes chaînées pouvant être identifiées par un nombre unique pour faciliter les recherches d'éléments dans les tables. \\
+
+Ainsi notre structure de données se base sur les listes chaînées, nous avons pour cela implémenté des fonctions pour les créer, les modifier ou y extraire des informations. Aussi tous les tests ont été effectués dans le fichier "test\_list.c". \\
+
+Après avoir créé des fonctions pour les listes, nous en avons conçu d'autres pour les tables en nous appuyant sur ces dernières. Ainsi nous pouvons modifier des tables ou y extraire des informations. Pour les tableaux un nombre de listes \emph{size} est requis, plus cette taille est grande et plus la recherche d'éléments peut être effectuée rapidement. Aussi nous avons commencé par stocker notre dictionnaire dans des tables d'une taille de 300 cellules avant de passer sur des tailles de plusieurs milliers. 
+Les fonctions des tables ont toutes été testées dans le fichier "test\_dico.c". \\
+
+\subsubsection{Les Fonctions}
+Pour réaliser notre solveur nous avons dû faire appel à plusieurs fonctions. \\
+Nous avons d'abord créé une fonction appelée \emph{dico\_load()} qui permet de créer le dictionnaire depuis un fichier texte contenant tous les mots.\\
+Ensuite le solveur cherche le meilleur mot, pour cela il utilise la fonction \emph{wordEntropy} qui calcule l'entropie des mots, elle fonctionne grâce à la fonction \emph{evaluation} qui à partir de 2 mots retourne leur combinaison. Enfin une fonction \emph{getBestWord()} réutilise les 2 fonctions vues précédemment pour donner le meilleur mot au sens de l'entropie. \\
+
+Toutes ces fonctions s'appuient sur d'autres mineurs tels que \emph{findWordsGreen()} et \emph{findWordsYellow()} qui recherchent tous les mots respectivement avec une lettre bien placée ou une lettre mal placée ; ou encore \emph{motsSuivantsPossibles()} qui ne renvoie que les mots valables pour une combinaison donnée.\\
+

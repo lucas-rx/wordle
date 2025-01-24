@@ -1,0 +1,119 @@
+\tabto{1cm}L'application a été développée en langage Python avec le framework Flask, permettant ainsi de créer et gérer des pages HTML dynamiques. Le fichier contrôleur, \emph{app.py}, permet de rediriger l'utilisateur sur les bonnes routes en fonction de la position sur le site et de la validité de ses réponses aux différents formulaires. Ce fichier gère également les requêtes SQL avec la base de données \emph{database.db}, notamment \texttt{INSERT INTO} et \texttt{SELECT}. Le jeu WORDLE a, quant à lui, été implémenté en JavaScript.\\
+
+Ce tableau récapitule le fichier correspondant à chacune des différentes routes :
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Route} & \textbf{Page HTML associée} & \textbf{Fonctionnalités} \\
+    \hline
+    \emph{/} & \emph{index.html} & Jeu WORDLE \\
+    \hline
+    \emph{/register} & \emph{register.html} & Créer un compte \\
+    \hline
+    \emph{/login} & \emph{login.html} & Se connecter au jeu \\
+    \hline
+    \emph{/preference} & \emph{preference.html} & Modifier les paramètres du jeu \\
+    \hline
+    \emph{/profile} & \emph{profile.html} & Consulter son historique de jeu, ses succès et ses statistiques \\
+    \hline
+    \emph{/logout} & Aucune & Se déconnecter \\
+    \hline
+    \emph{/recup/<userinfo>} & Aucune & Récupérer les informations relatives à une partie depuis \emph{index.js} \\
+    \hline
+\end{tabular}
+\end{center}
+
+\vspace{0.5cm}
+
+\tabto{1cm}Dans la suite de cette partie du rapport (\textbf{Interface Web}), on confondra route et page HTML associée pour les 5 premières routes du tableau.
+
+\subsubsection*{Jouer à WORDLE}
+
+\tabto{1cm}La page d'accueil du site est \emph{index.html}, sur la route \emph{/}. Sur cette page, le joueur peut directement faire une partie et modifier les paramètres de jeu (longueur du mot, nombre de tentatives) s'il souhaite en cliquant sur le bouton \textbf{Paramètres de jeu} qui le redirigera sur la route \emph{/preference}. Le joueur peut également choisir le mode de jeu de WORDLE : soit classique (le jeu de base), soit sans fin. Dans ce second mode, il faut deviner le plus de mots possibles d'affilée sans se tromper sans quoi le jeu s'arrêtera. \\
+
+\tabto{1cm}À noter que ces paramètres sont stockés dans la variable globale \emph{session}, ce qui permet même à un joueur non connecté de changer ces paramètres à sa guise. De plus, au lancement du jeu, la fonction \emph{before\_first\_request()} s'exécute et déconnecte automatiquement un joueur potentiellement connecté et réinitialise les paramètres de jeu dans le but d'éviter des bugs.\\
+
+\tabto{1cm}Laisser la possibilité au joueur de créer un compte ou non lui permet de jouer directement et ainsi rend le jeu plus attractif : des joueurs pourraient être repoussés à l'idée d'être forcés de créer un compte. C'est pourquoi il n'est pas obligatoire de créer un compte pour jouer. Cependant, les parties et leurs informations jouées par un joueur non connecté ne sont pas enregistrées, même si les seules informations demandées sont un pseudonyme et un mot de passe.
+
+\subsubsection*{S'inscrire, se connecter, se déconnecter}
+
+\tabto{1cm}Pour s'inscrire, il suffit de cliquer sur le bouton \textbf{S'inscrire} en haut à droite de la page d'accueil. Dans ce cas, le joueur est redirigé sur la route \emph{/register} et on lui demande un pseudonyme et un mot de passe, qu'il doit ensuite confirmer. Ces deux informations doivent faire entre 8 et 20 caractères, dans le but de rendre l'application un peu plus sécurisée. Il est impossible de choisir un pseudonyme déjà pris par un autre joueur, et les deux mots de passe renseignés doivent être évidemment identiques. \\
+
+\tabto{1cm}En cas d'échec d'inscription pour les raisons évoquées ci-dessus, le joueur reste sur la même route et les champs du formulaire sont effacés, sinon les informations du joueur sont ajoutées à la table \texttt{Utilisateur} de la base de données, puis le joueur est redirigé sur la route \emph{/login}. Pour plus de sécurité, le mot de passe est concaténé avec un salt de longueur 12 avant d'être haché avec la fonction \emph{SHA256}, puis seulement enregistré.\\
+
+\tabto{1cm}Sur la page de connexion, il suffit de rentrer ses informations d'authentification pour se connecter. Une fois connecté, le psuedonyme du joueur s'affiche en haut à droite avec la mention "En ligne" (un joueur non connecté verrait la mention "Hors ligne" s'afficher). De plus, son id de joueur (selon la base de données) et son pseudonyme sont ajoutés à session, ce qui permet de savoir que ce joueur est connecté.\\
+
+\tabto{1cm}Pour se déconnecter, il suffit de cliquer sur le bouton \textbf{Se déconnecter} une fois connecté. Le joueur est alors redirigé sur la route \emph{/logout}, où \emph{session} est vidé de l'id du joueur et de son pseudonyme, puis le joueur est redirigé vers la route \emph{/}.
+
+\subsubsection*{Profil d'un joueur}
+
+\tabto{1cm}Un joueur \textbf{connecté} à automatiquement accès à son profil via le bouton \textbf{Profil}, qui le redirige alors sur la route \emph{/profile} (un joueur non connecté n'a pas accès à cette fonctionnalité). La page \emph{profile.html} recense l'historique de ces parties, les succès débloqués, les statistiques de jeu et l'expérience du joueur. Dès que le joueur se rend sur cette route, toutes ces données sont actualisées grâce aux fonctions \emph{getHistorique()}, \emph{getStatistiques()}, \emph{achQuests()} et \emph{niveau()} respectivement. Aucune de ces fonctions ne prend l'ID du joueur en argument puisque ce dernier est stocké dans \emph{session} avec la clé \emph{idUser}.
+
+\subsubsection*{Profil d'un joueur - [1] Historique}
+
+\tabto{0cm}Pour chaque partie jouée, on enregistre :
+\begin{itemize}
+    \item le mot à deviner;
+    \item sa longueur;
+    \item le nombre de tentatives autorisées;
+    \item le nombre de tentatives utilisées pour deviner le mot (-1 en cas de défaite);
+    \item l'expérience gagnée à l'issue de la partie (0 en cas de défaite);
+    \item le mode de jeu ("Classique" ou "Sans fin").
+\end{itemize}
+
+Ces informations sont récupérées depuis le fichier \emph{dash.js} puis envoyées à \emph{app.py} via la route \emph{/recup/<userinfo>} avec une requête XML HTTP, dans un fichier \emph{.json}. Ces données sont ensuite enregistrées dans la table \texttt{Partie}.\\
+
+\tabto{1cm}L'historique est récupéré en exécutant la fonction \emph{getHistorique()}, puis est ensuite affiché de la partie la plus récente à la plus ancienne. Pour chacune d'entre elles, la couleur informe le joueur de sa victoire (vert) ou de sa défaite (rouge). Les informations enregistrées dans \texttt{Partie} sont également affichées pour plus de détails sur chaque partie. L'équipe projet a décidé de n'implémenter que le minimum demandé concernant l'historique pour se concentrer sur d'autres fonctionnalités détaillées plus loin.
+
+\subsubsection*{Profil d'un joueur - [2] Achievements (succès)}
+
+\tabto{1cm}En jouant au jeu, le jouer peut débloquer des achievements en réalisant certaines tâches, comme jouer ou gagner un certain nombre de parties ou en gagnant une partie en 3 essais ou moins. Sur la page \emph{profile.html}, les achievements débloqués sont en vert tandis que ceux pas encore débloqués sont en violet. \\
+
+\tabto{1cm}Dès que le joueur se rend sur la route \emph{/profile}, on exécute la fonction \emph{achQuests(idPartie)} qui récupère en premier lieu la liste des IDs des achievements déjà débloqués avec la fonction \emph{getAchsAlreadyUnlocked()}. Ensuite, pour chacun d'entre eux, on exécute une requête SQL puis on analyse son résultat, dans le but de savoir si on délivre tel achievement au joueur ou non. Si la condition d'obtention de l'achievement est vérifiée et qu'il n'est pas encore débloqué, on exécute la requête SQL \texttt{INSERT INTO Achievements VALUES (idPartie, idSucces)} pour donner l'achievement \texttt{idSucces} au joueur. idPartie est l'ID de la dernière partie jouée par le joueur : ainsi, on s'assure d'effectuer les requêtes SQL sur l'ensemble des parties jouées par le joueur connecté.
+
+%Dès que un achievement est débloqué le I.D. de la partie et le I.D. de l'achievement sont enregistrés dans la table 'Achievements' de la base de données. Si le joueur veut regarder tous les achievements qu'il a débloqué il peut voir la page ''. Sur cette page on peut voir tous les achievements possible. L'achievement est sur-ligné en vert s'il est débloqué, sinon il reste rouge. En haut de la page on a un niveau et une barre d'expérience qui augmentent en fonction du nombre de parties que le joueur a joué, le nombre de lettres de la partie et le nombre d’essais de la partie nécessaires. Évidement, ce n’est que possible d’enregistrer un achievement si le joueur est connecté en débloquant l’achievement et ce n’est que possible de voir les achievements débloqués si le joueur est connecté.
+
+\subsubsection*{Profil d'un joueur - [3] Statistiques}
+
+\tabto{1cm}Sur la page \emph{profile.html}, on retrouve un tableau recensant les statistiques de jeu du joueur : moyenne du nombre de coups pour les parties gagnées, nombre de parties jouées et taux de victoires. Les statistiques sont d'abord présentées pour l'ensemble des parties jouées, puis détaillées selon le nombre de lettres. On retrouve aussi la plus grande série de victoires (le plus grand nombre de parties gagnées d'affilée), calculé avec la fonction \emph{getBestStreak()}.\\
+
+\tabto{0cm}Ces informations sont récupérées grâce à la fonction \emph{getStatistiques()}, qui renvoie un tuple de longueur 6 contenant :
+\begin{itemize}
+    \item la moyenne du nombre de coups pour toutes les parties gagnées;
+    \item une liste contenant la moyenne du nombre de coups pour les parties gagnées avec des mots de 4 à 12 lettres inclus;
+    \item le nombre de parties jouées;
+    \item une liste contenant le nombre de parties jouées avec des mots de 4 à 12 lettres inclus;
+    \item le taux de victoires en \%;
+    \item une liste contenant le taux de victoires en \% avec des mots de 4 à 12 lettres inclus.
+\end{itemize}
+
+%\tabto{1cm}Dans l'onglet profile se trouve une partie dédiée aux statistique qui se présente sous la forme d'un tableau possédant autant de ligne que de nombre de lettre à choisir plus une qui correspond aux statistiques globales. Pour chaque nombre de lettre et pour toutes les parties (les statistiques globales) le tableau nous donne le nombre de coups moyen, le nombre de parties jouées ainsi que le taux de victoire.
+
+\subsubsection*{Profil d'un joueur - [4] Expérience}
+
+\tabto{1cm}L'expérience représente le temps passé sur le jeu par le joueur, ainsi que sa capacité à bien jouer. Lorsqu'un joueur crée un compte, il est au niveau 1 et il peut monter jusqu'au niveau 100. Perdre une partie rapporte 0 point d'expérience. Pour chaque partie gagnée, le joueur gagne de l'expérience selon la formule suivante :
+
+\begin{equation}
+    expGagnee = (nbEssaisMax - nbEssaisUtilises) * 100 + longueurMot * 200 - nbEssaisMax * 20
+\end{equation}
+
+\tabto{0cm}avec :
+\begin{itemize}
+    \item nbEssaisMax : le nombre d'essais maximum autorisés pour cette partie;
+    \item nbEssaisUtilises : le nombre d'essais utilisés par le joueur pour deviner le mot;
+    \item longueurMot : la longueur du mot (en lettres).
+\end{itemize}
+
+\tabto{0cm}Pour calculer le nombre de points d'expérience nécessaires pour passer au niveau suivant, on utilise la formule :
+
+\begin{equation}
+    expNecessaire = \lfloor 1.05 * x^\frac{9}{4} \rfloor
+\end{equation}
+
+\tabto{0cm}où $x$ représente le niveau à atteindre (entre 2 et 100).
+
+%Pour le jeu lui-même, nous voulions quelque chose de facile à utiliser mais avec quelques fonctionnalités supplémentaires. Tout comme le jeu WORDLE original, nous permettons à nos utilisateurs de démarrer un jeu directement à partir de la page d'accueil, mais afin de suivre les statistiques du jeu, il faut enregistrer ses coordonnées dans la base de données. Les règles du jeu sont, pour la plupart, comme celles du WORDLE original mais on peut changer les paramètres ; longueur de mot et nombre de tentatives. Si l'utilisateur décide de créer un compte, il aura accès à sa progression et à un score qui peut représenter son nombre moyen de tentatives.
+
+%\subsubsection*{Historique}
+%En se connectant on a aussi la possibilité de pouvoir accéder à son historique de partie dans l'onglet profile. Cet historique est agencé de telle sorte que chaque partie possède une case verte si elle est gagné rouge sinon. Dans cette case se trouve le nombre de points d'expérience remporté, le mot à deviner ainsi que le nombre de tentative. Chaque case est disposée de la plus récente à la plus ancienne de haut en bas.

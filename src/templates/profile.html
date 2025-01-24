@@ -1,0 +1,146 @@
+{% extends "layout.html" %}
+
+{% block head %}
+
+    <link rel="stylesheet" href="../static/head.css">
+    <link rel="stylesheet" href="../static/navbar.css">
+    <link rel="stylesheet" href="../static/profile.css">
+
+{% endblock %}
+
+{% block body %}
+
+    <header class="main-header">
+        <span class="wordle-title">WORDLE</span>
+        <nav>
+            <ul>
+                <li><a class="navbar-link" href="#history">Historique</a></li>
+                <li><a class="navbar-link" href="#achievements">Succès</a></li>
+                <li><a class="navbar-link" href="#stats">Statistiques</a></li>
+                <li><a class="navbar-link" href="/">Accueil</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="profile-box">
+
+        <div class="profile-text-block">
+            <p class="profile-text">Profil de {{ session.username }}</p>
+        </div>
+
+        <div class="experience">
+            <p class="exp-text">Expérience</p>
+            <p class="exp-data">
+                Niveau : {{ level }}<br />
+                Points d'expérience : {{ exp }}<br />
+                Expérience avant niveau suivant : {{ missingXP }}
+            </p>
+            <div class="progress-bar">
+                <label for="exp-bar" class="label-exp-bar">Votre expérience :</label>
+                <progress id="exp-bar" max="100" value={{remp}}>{{ remp }} %</progress> {{ remp }} %
+            </div>
+        </div>
+
+        <p class="history-title" id="history">Historique des parties</p>
+
+        <div class="history">
+
+            {% for game in history %}
+                {% if game[5] == -1 %} <!-- Défaite -->
+                    <div class="defeat-game">
+                        <p class="game-data">
+                            Partie perdue <br>
+                            Le mot secret était <span class="secret-word">{{ game[2] }}</span> <br>
+                            Une défaite rapporte 0 XP <br>
+                            Vous aviez {{ game[4] }} tentatives pour deviner ce mot
+                        </p>
+                    </div>
+                {% else %} <!-- Victoire -->
+                    <div class="victory-game">
+                        <p class="game-data">
+                            Partie gagnée <br>
+                            Le mot secret était <span class="secret-word">{{ game[2] }}</span> <br>
+                            Cette victoire vous a fait gagner {{ game[3] }} points d'XP <br>
+                            {% if game[5] == 1 %} <!-- Mot deviné en 1 tentative : on supprime le "s" à tentatives -->
+                                Vous aviez {{ game[4] }} tentatives pour deviner ce mot et vous l'avez deviné en {{ game[5] }} tentative
+                            {% else %}
+                                Vous aviez {{ game[4] }} tentatives pour deviner ce mot et vous l'avez deviné en {{ game[5] }} tentatives
+                            {% endif %}
+                        </p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+
+        <p class="achievements-title" id="achievements">Succès</p>
+        <p class="explain-achs-colors">Les succès débloqués sont en <span class="unlocked-color">vert pâle</span>, 
+            les autres sont en <span class="locked-color">violet</span>.</p>
+
+        <div class="achievements">
+
+            <div class="achsDisplay">
+
+                {% for i in range(achUnlocked|length) %}
+                    {% if achUnlocked[i] == 1 %} <!-- Succès obtenu -->
+                        <div class="unlocked-ach">
+                            <span class="unlocked-ach-text">
+                                {{ achDesc[i][0] }} <br>
+                            </span>
+                        </div>
+                    {% else %} <!-- Succès pas encore obtenu -->
+                        <div class="locked-ach">
+                            <span class="locked-ach-text">
+                                {{ achDesc[i][0] }} <br>
+                            </span>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+            <!--
+            <br> Votre grade est: {{ grade }}
+            
+            {% if grade != "expert" %}
+                {{ grade }}<progress id="file" max="100" value={{remp}}> 70% </progress> {{ grade2 }}
+            {% endif %}
+            -->
+
+        </div>
+
+        <p class="stats-title" id="stats">Statistiques de jeu</p>
+
+        <div class="table-container">
+
+            <p class="best-streak">Plus longue série de victoires : <strong>{{ bestStreak }}</strong></p>
+
+            <table class="stats-table" width="100%">
+                <tr>
+                    <th width="16%">Taille du mot</th>
+                    <th width="28%">Moyenne du nombre de coups pour les parties gagnées</th>
+                    <th width="28%">Nombre de parties jouées</th>
+                    <th width="28%">Taux de victoires</th>
+                </tr>
+                <tr>
+                    <td>Global</td>
+                    <td>{{ stats[0] }}</td>
+                    <td>{{ stats[2] }}</td>
+                    <td>{{ stats[4] }} %</td>
+                </tr>
+                {% for i in range(9) %}
+                    <tr>
+                        <td>{{ i + 4 }}</td>
+                        <td>{{ stats[1][i] }}</td>
+                        <td>{{ stats[3][i] }}</td>
+                        <td>{{ stats[5][i] }} %</td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+
+    </div>
+
+    <footer></footer>
+
+{% endblock %}

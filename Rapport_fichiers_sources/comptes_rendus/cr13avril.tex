@@ -1,0 +1,80 @@
+\begin{center}
+\begin{tabular}[c]{|l|l|}
+    \hline
+    Type de réunion & Réunion d'avancement \\
+    \hline
+    Lieu & Discord \\
+    \hline
+    Horaires & 14h00 - 15h00 \\
+    \hline
+    Maître de séance & Lucas Rioux\\
+    \hline
+    Secrétaire & Lucas Rioux \\
+    \hline
+    Membres présents & Armand Londeix \\ & Patrick O'Brien \\ & Lucas Rioux \\ & Serge Téhé\\
+    \hline
+    Membres absents & Aucun \\
+    \hline
+\end{tabular}
+\end{center}
+
+\section*{Ordre du jour}
+
+\textbf{
+\begin{enumerate}
+    \item Avancement depuis la dernière réunion
+    \item Fonction evaluation(), jeu WORDLE : clarification
+    \item Base de données de l’application
+    \item Mise en place du CSS
+\end{enumerate}
+}
+
+
+\section*{1. Avancement depuis la dernière réunion}
+\tabto{1cm}Au début de la réunion, il a été décidé à 3 votes contre un de supprimer la route /dico ainsi que la page dico.html, jugés inutiles à l’application. Ensuite, chacun des membres de l’équipe projet fait un bilan sur ce qui a été réalisé depuis la dernière réunion :
+
+\begin{itemize}
+\item Armand a commencé à développer la page achievements.html renommée ensuite en profile.html. Il a rencontré certains problèmes avec notamment un module non installé (pytest) qui ne lui permettait pas de lancer l’application via flask run, et aussi avec le dictionnaire session. Ces problèmes ont été résolus.
+\item Patrick a rédigé une partie du document de conception concernant la base de données et le site HTML : Lucas lui fait remarquer qu’il devait s’occuper de la présentation textuelle du jeu, ce que Patrick note et fera pour la prochaine réunion. Il rencontre des soucis avec la commande git pull, a priori résolus.
+\item Serge s’est chargé de concevoir et de normaliser en 3ème forme normale la base de données. Il s’occupera ensuite du modèle entité-association.
+\item Lucas a réalisé une première maquette du site Web, un schéma de ses routes ainsi qu’un schéma de son architecture. Il a aussi fait le WBS et ajouté le README sur le git.
+\end{itemize}
+
+\section*{2. Fonction evaluation(), jeu WORDLE : clarification}
+\tabto{1cm}Lucas a retiré sa fonction evaluation() pour laisser celle d’Armand, qui avait implémenté cette fonctionnalité le premier.\\
+Vient ensuite une question cruciale : quelle application utiliser ? Armand, \tabto{1cm}Patrick et Lucas ont, pour le début du développement, mis en place un formulaire tandis que Serge a développé l’entièreté du jeu de son côté (fonction d’évaluation, mise en forme) en JavaScript, langage que seul lui maîtrise. Armand propose à Serge d’essayer de “remplacer” le code Python sur la route “/” en JavaScript, ou d’essayer d’établir une connexion entre les deux fichiers afin de conserver les fonctions déjà développées. Serge lui répond que c’est impossible.\\ 
+\tabto{1cm}Concernant le mot secret, le problème ne se pose pas puisqu’il est déclaré dans app.py. Afin de relier le fichier JavaScript et la base de données, Serge propose de faire du web scraping. Serge accepte de se charger de la connexion entre le fichier JavaScript et la base de données.\\
+
+\section*{3. Base de données de l’application}
+\tabto{1cm}Serge nous présente son travail sur la base de données du site. Suite à des discussions ayant eu lieu après la réunion, la base de données retenue est la suivante :\\ \\ \\ \\ \\ \\ \\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=12cm]{figures/bddfinalnormalisé.png}
+\caption{Schéma de la base de données de WORDLE}
+\end{figure}
+
+\section*{4. Mise en place du CSS}
+\tabto{1cm}Enfin, Lucas rappelle au groupe qu’il faudrait commencer à mettre en forme le site. Armand veut bien commencer à s’en charger.
+
+\section*{TO-DO LIST}
+
+\begin{center}
+\begin{tabular}{|c|l|}
+    \hline
+    Armand Londeix & - Rédaction du document de conception \\
+    \hline
+    Patrick O'Brien & - Rédaction du document de conception \\
+    & - Présentation textuelle du jeu Wordle \\
+    \hline
+    Lucas Rioux & - Maquette du site \\
+    & - WBS \\
+    & - Rédaction du document de conception \\
+    \hline
+    Serge Téhé & - Normalisation de la base de données \\
+    & - Rédaction du document de conception \\
+    \hline
+\end{tabular}
+\end{center}
+
+\tabto{0cm}\textbf{Prochaine réunion : Vendredi 15 Avril à 10h00.}

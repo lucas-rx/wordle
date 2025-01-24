@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block head %}
+
+<link rel="stylesheet" href="../static/head.css">
+<link rel="stylesheet" href="../static/navbar.css">
+<link rel="stylesheet" href="../static/preference.css">
+
+{% endblock %}
+
+{% block body %}
+
+<header class="main-header">
+    <span class="wordle-title">WORDLE</span>
+    <nav>
+        <ul>
+            <li><a class="navbar-link" href="/">Accueil</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="settings-form">
+
+    <div class="settings-text-block">
+        <p class="settings-text">Changer les paramètres de jeu</p>
+    </div>
+
+    <form action="/" method="POST">
+
+        <div class="settings-flex-item">
+            <label for="tailleMots">Taille des mots :</label><br>
+            <select class="settings-form-select" name="tailleMots" id="tailleMots">
+                {% for item in tailleMots %}
+                    {% if item == 7 %}
+                        <option value="{{ item }}" selected>{{ item }}</option>
+                    {% else %}
+                        <option value="{{ item }}">{{ item }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="settings-flex-item">
+            <label for="nombreEssais">Nombre d'essais :</label><br>
+            <select class="settings-form-select" name="nombreEssais" id="nombreEssais">
+                {% for item in nombreEssais %}
+                    {% if item == 6 %}
+                        <option value="{{ item }}" selected>{{ item }}</option>
+                    {% else %}
+                        <option value="{{ item }}">{{ item }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="settings-flex-item">
+            <label for="modeJeu">Mode de jeu :</label><br>
+            <select class="settings-form-select" name="modeJeu" id="modeJeu">
+                <option value="Classique" selected>Classique</option>
+                <option value="Sans fin">Sans fin</option>
+            </select>
+        </div>
+
+
+        <div class="settings-flex-item">
+            <input class="settings-form-button" type="submit" value="Jouer avec ces paramètres">
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

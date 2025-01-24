@@ -1,0 +1,51 @@
+#online {
+    color: #166508;
+}
+
+#offline {
+    color: #9d1414;
+}
+
+.mode h1 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 200%;
+}
+
+.some-alerts-box {
+    visibility: hidden;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+#not-in-dico-alert {
+    display: none;
+    font-size: 140%;
+    color: #de3535;
+    margin-bottom: 2px;
+}
+
+#defeat-alert {
+    display: none;
+    font-size: 140%;
+    color: #de3535;
+    margin-bottom: 2px;
+}
+
+#not-enough-letter-alert {
+    display: none;
+    font-size: 140%;
+    color: #de3535;
+    margin-bottom: 2px;
+}
+
+#victory-alert {
+    display: none;
+    font-size: 140%;
+    color: #19700a;
+    margin-bottom: 2px;
+}
+
+footer {
+    height: 140px;
+}

@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    background-color: #79acea;
+}
+
+@font-face {
+    font-family: "Organic Relief";
+    src: url("./fonts/Organic_Relief.ttf") format("truetype");
+}
+
+.main-header {
+    background-color: #2ca0e3;
+    padding: 10px;
+    height: 12vh;
+    box-shadow: 0px 4px 6px #3ca0d9;
+}
+
+.wordle-title {
+    font-family: "Organic Relief", Arial, sans-serif; /* On pourra la modifier */
+    font-size: 300%;
+    /*color: #213fb8;*/
+    margin-left: 30px;
+    position: absolute;
+    top: 1vh;
+}
+
+.error-message {
+    display: block;
+    margin: auto;
+    font-size: 120%;
+    font-family: Arial, sans-serif;
+    color: #de3535;
+}

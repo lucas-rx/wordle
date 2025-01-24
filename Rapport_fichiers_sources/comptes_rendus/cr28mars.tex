@@ -1,0 +1,83 @@
+\begin{center}
+\begin{tabular}[c]{|l|l|}
+    \hline
+    Type de réunion & Réunion d'avancement \\
+    \hline
+    Lieu & Telecom Nancy \\
+    \hline
+    Horaires & 13h00 - 14h00\\
+    \hline
+    Maître de séance & Lucas Rioux\\
+    \hline
+    Secrétaire & Lucas Rioux \\
+    \hline
+    Membres présents & Armand Londeix \\ & Patrick O'Brien \\ & Lucas Rioux \\ & Serge Téhé\\
+    \hline
+    Membres absents & Aucun \\
+    \hline
+\end{tabular}
+\end{center}
+
+\section*{Ordre du jour}
+
+\textbf{
+\begin{enumerate}
+    \item Avancement depuis la dernière réunion
+    \item Implémentation de l’application
+\end{enumerate}
+}
+
+\tabto{1cm}Les membres du groupe ont tous téléchargé GanttProject en amont de la réunion. GanttProject est un logiciel gratuit permettant de créer un diagramme de Gantt.
+
+\section*{1. Avancement depuis la dernière réunion}
+\tabto{1cm}Depuis la précédente réunion, Lucas a obtenu des renseignements concernant d’autres bases de données contenant l’ensemble des mots du dictionnaire français, et notamment l’Officiel du Scrabble (ODS 6) avec presque 400 000 mots. L’équipe projet ne s’est pas encore prononcée sur la question du dictionnaire utilisé. Patrick a mis en place le début du diagramme de Gantt et les membres se sont renseignés sur l’utilisation des branches de git.\\
+
+\section*{2. Implémentation de l’application}
+\tabto{1cm}Il s'ensuit un débat pour savoir s’il faut ranger les mots dans un seul fichier texte, différents fichiers texte selon leur longueur ou bien dans une base de données (une table plus précisément). Serge et Armand sont partants pour préalablement trier les mots selon leur longueur dans un souci de gain de temps de calcul, ce sur quoi le groupe s’accorde.
+En ce qui concerne la base de données, elle comporte pour l’instant deux tables :
+
+\begin{center}
+\begin{tabular}[c]{|l|l|}
+    \hline
+    \textbf{User} & \textbf{Historique} \\
+    \hline
+    \textbf{idUser} INTEGER, PRIMARY KEY & \textbf{idPartie} INTEGER, \\ & PRIMARY KEY \\
+    \hline
+    \textbf{pseudo} VARCHAR(20), UNIQUE & \textbf{idUser} INTEGER, \\ & FOREIGN KEY REFERENCES \\ & User(idUser) \\
+    \hline
+    \textbf{motDePasse} VARCHAR(20) & \textbf{motSecret} VARCHAR(15)\\
+    \hline
+    & \textbf{nbTentatives} INTEGER\\
+    \hline
+\end{tabular}
+\end{center}
+
+Lucas a rappelé que la base de données doit être en 3ème forme normale, et rappelle les règles (qui sont dans le cours). Pour l’instant, le groupe se demande s’il faut enregistrer uniquement la solution d’une partie et le nombre de coups joués pour gagner, ou bien s’il faut aussi sauvegarder l’ensemble des mots joués au cours d’une partie. Pour Armand, élaborer la base de données n’est pas une priorité : il faut se concentrer sur le développement Web. 
+Plusieurs pages HTML sont envisagées :
+\begin{itemize}
+    \item index, la page d’accueil du site
+    \item register et login, pour s’inscrire et se connecter,
+    \item game, la page avec le jeu,
+    \item history, pour voir l’historique de nos parties,
+    \item success, pour voir nos succès dans le jeu.
+\end{itemize}
+Cette liste est évidemment non exhaustive. Aussi, un utilisateur devra impérativement être connecté pour jouer : cette fonctionnalité peut être implémentée avec les bibliothèques Flask-Session et Flask-Login.\\
+
+\section*{TO-DO LIST}
+
+\begin{center}
+\begin{tabular}{|c|l|}
+    \hline
+    Armand Londeix & - Implémenter la page avec le jeu \\
+    \hline
+    Patrick O'Brien & - Réaliser une maquette du site sur Inkscape \\ 
+    & - Commencer à rédiger le document de conception \\
+   \hline
+    Lucas Rioux & - Réaliser une maquette du site sur Inkscape \\
+    \hline
+    Serge Téhé & - Implémenter la page avec le jeu\\
+    \hline
+\end{tabular}
+\end{center}
+
+\tabto{0cm}\textbf{Prochaine réunion : Vendredi 1er Avril à 13h00.}

@@ -1,0 +1,195 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+%\usepackage[latin1]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[top=2cm, bottom=2cm, left=1.5cm, right=1.5cm]{geometry}
+\usepackage{enumitem}
+\usepackage{floatrow}
+\usepackage{subcaption}
+\usepackage{subfiles}
+\usepackage{titlesec}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{booktabs}
+\usepackage{pdfpages}
+\usepackage{afterpage}
+\usepackage{pifont}
+\usepackage{systeme}
+\usepackage{array}
+\usepackage{tabto}
+
+
+
+
+\title{PPII S6 - Rapport}
+\author{Armand Londeix, Patrick O'Brien, Lucas Rioux, Serge Téhé}
+\date{Mars 2022 - Juin 2022}
+\begin{document}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.15]{figures/logo_TNCY.png}
+\end{figure}
+\maketitle
+\begin{center}
+\large{Promotion 2024}
+\end{center}
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{2pt}}
+\bigbreak
+\bigbreak
+\bigbreak
+\bigbreak
+
+\begin{center}
+\begin{Large}
+\Huge\textsc{\textbf{PPII S6 : JEU WORDLE}}
+\end{Large}
+\end{center}
+\bigbreak
+\bigbreak
+\bigbreak
+\bigbreak
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{2pt}}
+
+\bigbreak
+\bigbreak
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.2]{figures/UnivLorraineCollégium.png}
+\end{figure}
+
+\begin{center}
+\begin{Large}
+Responsable du projet : Olivier Festor
+                         
+
+\end{Large}
+\end{center}
+
+\bigbreak
+\bigbreak
+\bigbreak
+\bigbreak
+\begin{center}
+\large{28 mai 2022}
+\end{center}
+
+\newpage
+\bigbreak
+\bigbreak
+\bigbreak
+\bigbreak
+
+\renewcommand{\contentsname}{Sommaire}
+\tableofcontents{}
+\newpage
+
+\maketitle
+
+
+\section{Introduction}
+\input{tex_files/introduction}
+
+\newpage
+\section{Implémentation de WORDLE}
+
+\subsection{La base de données}
+\input{tex_files/Basedonnee}
+
+\newpage 
+\subsection{L'interface Web}
+\input{tex_files/interfaceWeb}
+
+\subsection{Le solveur}
+\input{tex_files/solveur.tex}
+
+\newpage
+\section{Tests et performances}
+\input{tex_files/Testperformance}
+
+\newpage
+\section{Gestion de projet}
+\input{tex_files/gestion_projet}
+
+\newpage
+
+\section{Bilan du projet}
+\input{tex_files/bilan_projet.tex}
+
+\newpage
+\section{Annexe}
+
+\subsection{Documents de gestion de projet}
+\input{tex_files/gdp_docs.tex}
+
+\subsection{Comptes-rendus}
+
+\subsubsection{Compte-rendu du 23 Mars 2022}
+\input{comptes_rendus/cr23mars}
+
+\subsubsection{Compte-rendu du 28 Mars 2022}
+\input{comptes_rendus/cr28mars}
+
+\subsubsection{Compte-rendu du 1er Avril 2022}
+\input{comptes_rendus/cr1avril}
+
+\subsubsection{Compte-rendu du 6 Avril 2022}
+\input{comptes_rendus/cr6avril}
+
+\subsubsection{Compte-rendu du 13 Avril 2022}
+\input{comptes_rendus/cr13avril}
+
+\subsubsection{Compte-rendu du 15 Avril 2022}
+\input{comptes_rendus/cr15avril}
+
+\subsubsection{Compte-rendu du 20 Avril 2022}
+\input{comptes_rendus/cr20avril}
+
+\subsubsection{Compte-rendu du 22 Avril 2022}
+\input{comptes_rendus/cr22avril}
+
+\subsubsection{Compte-rendu du 24 Avril 2022}
+\input{comptes_rendus/cr24avril}
+
+\subsubsection{Compte-rendu du 26 Avril 2022}
+\input{comptes_rendus/cr26avril}
+
+\subsubsection{Compte-rendu du 28 Avril 2022}
+\input{comptes_rendus/cr28avril}
+
+\subsubsection{Compte-rendu du 8 mai 2022}
+\input{comptes_rendus/cr8mai}
+
+\subsubsection{Compte-rendu du 13 mai 2022}
+\input{comptes_rendus/cr13mai}
+
+\subsubsection{Compte-rendu du 18 mai 2022}
+\input{comptes_rendus/cr18mai}
+
+\subsubsection{Compte-rendu du 21 mai 2022}
+\input{comptes_rendus/cr21mai}
+
+\subsubsection{Compte-rendu du 28 mai 2022}
+\input{comptes_rendus/cr28mai}
+
+\subsubsection{Compte-rendu du 5 juin 2022}
+\input{comptes_rendus/cr5juin}
+
+\newpage
+\section{Conception de WORDLE}
+\input{tex_files/doc_conception.tex}
+
+\newpage
+\section{Bibliographie}
+
+\begin{itemize}
+    \item Tutoriel pour jouer à WORDLE (Sean Plays) : https://www.youtube.com/watch?v=PXUqGT5ySsc
+    \item Tutoriel sur l’utilisation de la théorie de l’information pour optimiser la résolution d’une session
+    WORDLE (3Blue1Brown) : https://www.youtube.com/watch?v=v68zYyaEmEA
+    \item Correction d'un bug dans la vidéo précédente (3Blue1Brown) : https://www.youtube.com/watch?v=fRed0Xmc2Wg
+    \item Une autre vidéo sur le même sujet (ScienceEtonnante) : https://www.youtube.com/watch?v=iw4\_7ioHWF4
+\end{itemize}
+
+\end{document}

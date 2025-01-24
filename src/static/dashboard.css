@@ -1,0 +1,82 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.axe {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 4px;
+    margin: 4px;
+}
+
+.carre {
+    border: 2px solid black;
+    border-radius: 6px;
+    min-width: 60px;
+    min-height: 60px;
+    text-align: center;
+    justify-content: center;
+    font-size: larger;
+    margin: 4px;
+    font-size: 320%;
+}
+
+.interface {
+    justify-content: center;
+    align-items: center;
+}
+
+/*
+.rejouer a {
+    text-decoration: none;
+    border: 10px solid;
+    border-radius: 10px;
+    padding: 20;
+    color: red;
+    margin-bottom: 50px;
+    margin-right: 60px;
+    float: right;
+}
+
+.rejouer a:hover {
+    background-color: red;
+}
+*/
+
+a {
+    text-decoration: none;
+    color: #1f1212; /* Couleur des boutons de la navbar */
+}
+
+.rejouer {
+    margin-top: 10px;
+    visibility: hidden;
+    text-align: center;
+    font-size: 130%;
+    width: 120px;
+    height: 60px;
+    border-radius: 10px;
+    position: absolute;
+    left: 46.3vw;
+    background-color: #3976d2;
+    border: 4px inset #1b58b2;
+    cursor: pointer;
+}
+
+.rejouer:hover {
+    background-color: #1452ae;
+    border: 4px inset #072c64;
+    color: #dcdfeb;
+}
+
+.rejouer:hover a {
+    text-decoration: none;
+    color: #dcdfeb;
+}
+
+

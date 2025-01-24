@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block head %}
+
+<link rel="stylesheet" href="../static/head.css">
+<link rel="stylesheet" href="../static/index.css">
+<link rel="stylesheet" href="../static/navbar.css">
+<link rel="stylesheet" href="../static/dashboard.css">
+
+{% endblock %}
+
+{% block body %}
+
+<header class="main-header">
+    <span class="wordle-title">WORDLE</span>
+    <nav>
+        <ul>
+            {% if not session.username %}
+            <li><a class="navbar-link" href="/register">S'inscrire</a></li>
+            <li><a class="navbar-link" href="/login">Se connecter</a></li>
+            <li><a class="navbar-link" href="/preference">Paramètres de jeu</a></li>
+            <li id="offline">Hors ligne</li>
+            {% else %}
+            <li><a class="navbar-link" href="/profile">Profil</a></li>
+            <li><a class="navbar-link" href="/preference">Paramètres de jeu</a></li>
+            <li><a class="navbar-link" href="/logout">Se déconnecter</a></li>
+            <li id="online">{{ session.username }} - En ligne</li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
+
+<div class="mode">
+    <h1>Mode {{modeJeu}}</h1>
+</div>
+
+<div class="some-alerts-box" id="some-alerts-box">
+    <span id="not-in-dico-alert">Ce mot n'est pas dans le dictionnaire !</span><br />
+    <span id="defeat-alert">Perdu ! Le mot à trouver était <strong>{{ word }}</strong> !</span>
+    <span id="not-enough-letter-alert">Le mot renseigné est trop court !</span>
+    <span id="victory-alert">Félicitations, vous avez gagné !</span>
+</div>
+
+<button class="rejouer" id="rejouerBtn" onclick="window.location.href = '/';"></button> <!-- On recharge la page quand on clique sur le bouton -->
+
+<div class="main" id="main">
+    <div class="board"></div>
+</div>
+<p class="{{word}}"></p>
+<p class="{{dico}}"></p>
+<p class="{{longueur}}"></p>
+<p class="{{nb_essais}}"></p>
+<p class="{{modeJeu}}"></p>
+
+<footer></footer>
+
+<script src="../static/dash.js"></script>
+
+
+{% endblock %}

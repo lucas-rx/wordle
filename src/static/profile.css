@@ -1,0 +1,170 @@
+.profile-box {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 900px;
+    font-size: 150%;
+}
+
+.register-and-login-text-block {
+    text-align: center;
+}
+
+.profile-text {
+    font-size: 200%;
+}
+
+.experience {
+    width: 800px;
+    text-align: center;
+}
+
+.exp-data, .label-exp-bar {
+    font-size: 130%;
+}
+
+.history {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.defeat-game {
+    background-color: #f07e7e;
+    width: 70vw;
+    min-width: 580px;
+    height: 180px;
+    border: 4px solid #cb3636;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px #611212;
+    margin: auto;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.defeat-game:hover {
+    background-color: #eda2a2;
+    border: 4px solid #a72727;
+    box-shadow: 0px 6px 12px #410a0a;
+}
+
+.victory-game {
+    background-color: #86dc86;
+    width: 70vw;
+    min-width: 580px;
+    height: 180px;
+    border: 4px solid #39ab39;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px #0d4b0d;
+    margin: auto;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.victory-game:hover {
+    background-color: #abe8ab;
+    border: 4px solid #1f771f;
+    box-shadow: 0px 6px 12px #0a370a;
+}
+
+.game-data {
+    font-size: 110%;
+}
+
+.secret-word {
+    font-weight: bold;
+}
+
+.exp-text, .history-title, .achievements-title, .stats-title {
+    font-size: 180%;
+    font-weight: bold;
+    text-align: center;
+}
+
+.achievements {
+    width: 60vw;
+}
+
+.achsDisplay {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: space-between;
+}
+
+.explain-achs-colors {
+    font-size: 150%;
+    margin-top: 5px;
+}
+
+.unlocked-color {
+    background-color: #6edeb1;
+}
+
+.locked-color {
+    background-color: #8d82f4;
+}
+
+.locked-ach, .unlocked-ach { /* CSS à faire pour les succès et les stats */
+    width: 300px;
+    background-color: #8d82f4;
+    border: 4px solid #5b63dd;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px #1d2375;
+    margin-bottom: 30px;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.unlocked-ach {
+    border: 4px solid #299c6e;
+    background-color: #6edeb1;
+    box-shadow: 0px 4px 8px #1a7651;
+}
+
+.locked-ach:hover {
+    border: 4px solid #353dad;
+    background-color: #a199ec;
+    box-shadow: 0px 6px 12px #111332;
+}
+
+.unlocked-ach:hover {
+    border: 4px solid #269468;
+    background-color: #94eac8;
+    box-shadow: 0px 6px 12px #104731;
+}
+
+.locked-ach-text, .unlocked-ach-text {
+    font-size: 130%;
+}
+
+.best-streak {
+    font-size: 130%;
+    text-align: center;
+}
+
+.stats-table {
+    width: 1280px;
+    min-width: 400px;
+    font-size: 130%;
+    text-align: center;
+    margin: auto;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th {
+    font-weight: bold;
+    background-color: #4b8dde;
+}
+
+td {
+    background-color: #70abf3;
+}
+
+footer {
+    height: 80px;
+}
